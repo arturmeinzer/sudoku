@@ -1,0 +1,25 @@
+.NoteBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+}
+
+
+.Note {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+    color: #555;
+    margin: 2px;
+}
+
+.Note.active {
+    background: cornflowerblue;
+    color: #fff;
+}
