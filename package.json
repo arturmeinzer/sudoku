@@ -41,25 +41,10 @@
       "airbnb/hooks"
     ],
     "rules": {
-      "quotes": [
-        "error",
-        "double"
-      ],
-      "indent": [
-        "error",
-        4
-      ],
-      "react/jsx-indent": [
-        "error",
-        4
-      ],
-      "react/jsx-indent-props": [
-        "error",
-        4
-      ],
-      "no-underscore-dangle": [
-        "off"
-      ],
+      "quotes": ["error", "double"],
+      "indent": ["error", 4],
+      "react/jsx-indent": ["error", 4],
+      "react/jsx-indent-props": ["error", 4],
       "react/jsx-props-no-spreading": [
         "error",
         {
