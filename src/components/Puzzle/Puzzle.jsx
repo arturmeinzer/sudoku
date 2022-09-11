@@ -10,6 +10,7 @@ import { DIFFICULTIES_LIST } from "../../constants/difficulty";
 import { PROP_PUZZLE, SHAPE_ACTIVE_FIELD } from "../../constants/propTypes";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import NumbersGroup from "../NumbersGroup/NumbersGroup";
+import InfoBox from "../InfoBox/InfoBox";
 
 const SQUARES = 81;
 
@@ -99,6 +100,7 @@ const Puzzle = ({
 
     return (
         <div id="Sudoku">
+            <InfoBox />
             <div id="Puzzle">
                 {blocks}
             </div>
