@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import * as actions from "../../store/actions";
+import "./SuccessScreen.css";
 
 const SuccessScreen = ({ onClick, clearSudoku }) => {
     const handleClick = () => {
@@ -11,7 +12,7 @@ const SuccessScreen = ({ onClick, clearSudoku }) => {
     };
 
     return (
-        <div className="Success">
+        <div className="SuccessScreen">
             <h2>Congratulations!</h2>
             <Button onClick={handleClick}>New Game</Button>
         </div>

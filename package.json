@@ -15,6 +15,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-keydown": "^1.9.12",
+    "react-loading-icons": "^1.1.0",
     "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
@@ -41,10 +42,22 @@
       "airbnb/hooks"
     ],
     "rules": {
-      "quotes": ["error", "double"],
-      "indent": ["error", 4],
-      "react/jsx-indent": ["error", 4],
-      "react/jsx-indent-props": ["error", 4],
+      "quotes": [
+        "error",
+        "double"
+      ],
+      "indent": [
+        "error",
+        4
+      ],
+      "react/jsx-indent": [
+        "error",
+        4
+      ],
+      "react/jsx-indent-props": [
+        "error",
+        4
+      ],
       "react/jsx-props-no-spreading": [
         "error",
         {

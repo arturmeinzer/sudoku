@@ -11,6 +11,7 @@ import { PROP_PUZZLE, SHAPE_ACTIVE_FIELD } from "../../constants/propTypes";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import NumbersGroup from "../NumbersGroup/NumbersGroup";
 import InfoBox from "../InfoBox/InfoBox";
+import LoadingIcon from "../LoadingIcon/LoadingIcon";
 
 const SQUARES = 81;
 
@@ -26,7 +27,7 @@ const Puzzle = ({
     clearSudoku,
 }) => {
     useEffect(() => {
-        if (puzzle === null) {
+        if (puzzle === null && difficulty) {
             fetchSudoku(difficulty);
         }
     }, [difficulty, fetchSudoku, puzzle]);
@@ -80,9 +81,9 @@ const Puzzle = ({
         return "";
     };
 
-    if (solution === null) {
+    if (puzzle === null) {
         return (
-            <div />
+            <LoadingIcon />
         );
     }
 
@@ -121,7 +122,7 @@ const Puzzle = ({
 };
 
 Puzzle.propTypes = {
-    difficulty: PropTypes.oneOf(DIFFICULTIES_LIST).isRequired,
+    difficulty: PropTypes.oneOf(DIFFICULTIES_LIST),
     activeField: SHAPE_ACTIVE_FIELD,
     puzzle: PROP_PUZZLE,
     note: PropTypes.bool.isRequired,
@@ -136,6 +137,7 @@ Puzzle.defaultProps = {
     activeField: null,
     solution: null,
     puzzle: null,
+    difficulty: null,
 };
 
 const mapStateToProps = (state) => ({
