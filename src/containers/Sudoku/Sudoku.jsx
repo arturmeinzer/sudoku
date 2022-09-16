@@ -37,6 +37,10 @@ const Sudoku = ({
     }, [difficulty, fetchSudoku, puzzle]);
 
     useEffect(() => {
+        if (puzzle === null) {
+            return;
+        }
+
         const newBlocks = [];
         for (let i = 0; i < SQUARES; i += 1) {
             newBlocks.push(
