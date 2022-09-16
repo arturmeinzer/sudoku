@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+import { rubberBand } from "react-animations";
 import { getRow } from "../../../helpers/GridCalculator";
 import NoteBlock from "../../../components/NoteBlock/NoteBlock";
 import * as actions from "../../../store/actions";
 import { PROP_PUZZLE, PROP_PUZZLE_NUMBER, SHAPE_ACTIVE_FIELD } from "../../../constants/propTypes";
 import * as PuzzleUpdater from "../../../helpers/PuzzleUpdater";
+
+const bounceAnimation = keyframes`${rubberBand}`;
 
 const StyledButton = styled.button`
     display: inline-block;
@@ -42,21 +45,25 @@ const StyledButton = styled.button`
     ${(props) => (props.id % 3 === 2) && css`
         border-right: 2px solid #000;
     `}
-    
-    ${(props) => props.error && css`
-        background: tomato;
-    `}
 
-    ${(props) => (!props.error && props.active) && css`
+    ${(props) => props.active && css`
         background: #85C1E9;
     `}
 
-    ${(props) => (!props.active && props.marked) && css`
+    ${(props) => props.marked && css`
         background: #D4E6F1;
     `}
 
-    ${(props) => (!props.active && props.sameNumber) && css`
+    ${(props) => props.sameNumber && css`
         background: #D6DBDF;
+    `}
+
+    ${(props) => props.error && css`
+        background: tomato;
+    `}
+  
+    ${(props) => props.shake && css`
+        animation: 1s ${bounceAnimation};
     `}
 `;
 
@@ -113,10 +120,11 @@ const Block = ({
             type="button"
             id={id}
             row={row}
-            active={isActive()}
-            marked={isMarked()}
+            active={isActive() && !isError()}
+            marked={!isActive() && isMarked()}
             error={isError()}
-            sameNumber={isSameNumber()}
+            sameNumber={!isActive() && isSameNumber()}
+            shake={isSameNumber() && isMarked() && !isError()}
             onClick={handleClick}
         >
             {cellValue}

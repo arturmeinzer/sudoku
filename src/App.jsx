@@ -16,6 +16,7 @@ const Container = styled(Box)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 `;
 
 const App = ({
