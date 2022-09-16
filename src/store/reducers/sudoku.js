@@ -9,11 +9,18 @@ const initialState = {
     puzzle: null,
     initialPuzzle: null,
     solution: null,
+    seed: 0,
     errors: 0,
     isError: false,
 };
 
-const setNumber = (state, number, id) => {
+const setNumber = (state, number) => {
+    if (state.activeField === null) {
+        return state;
+    }
+
+    const { id } = state.activeField;
+
     if (PuzzleUpdater.isInitialField(id, state.initialPuzzle)) {
         return {
             ...state,
@@ -75,7 +82,7 @@ const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
     case actionTypes.SUDOKU_SET_DIFFICULTY:
         return {
-            ...state,
+            ...initialState,
             difficulty: action.payload,
         };
 
@@ -97,6 +104,7 @@ const reducer = (state = initialState, action = {}) => {
             initialPuzzle: action.payload.puzzle,
             puzzle: action.payload.puzzle,
             solution: action.payload.solution,
+            seed: action.payload.seed,
         });
 
     case actionTypes.SUDOKU_RESET:
@@ -109,7 +117,7 @@ const reducer = (state = initialState, action = {}) => {
 
     case actionTypes.SUDOKU_SET_NUMBER:
         return updateStorage(
-            setNumber(state, action.payload.number, action.payload.id),
+            setNumber(state, action.payload),
         );
 
     case actionTypes.SUDOKU_SET_IS_ERROR:

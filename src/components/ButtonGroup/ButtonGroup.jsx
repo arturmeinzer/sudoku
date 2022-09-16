@@ -1,16 +1,12 @@
-import React from "react";
 import { Box } from "@mui/material";
-import PropTypes from "prop-types";
-import "./ButtonGroup.css";
+import styled from "styled-components";
 
-const ButtonGroup = ({ children }) => (
-    <Box className="ButtonGroup">
-        {children}
-    </Box>
-);
-
-ButtonGroup.propTypes = {
-    children: PropTypes.node.isRequired,
-};
+const ButtonGroup = styled(Box)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+`;
 
 export default ButtonGroup;

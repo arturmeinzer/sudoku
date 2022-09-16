@@ -2,13 +2,12 @@ import React from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import * as actions from "../../store/actions";
-import { PROP_PUZZLE, SHAPE_ACTIVE_FIELD } from "../../constants/propTypes";
+import * as actions from "../../../store/actions";
+import { PROP_PUZZLE } from "../../../constants/propTypes";
 
 const NumbersGroup = ({
     note,
     puzzle,
-    activeField,
     setNumber,
 }) => {
     const numbers = {
@@ -31,10 +30,7 @@ const NumbersGroup = ({
     }
 
     const handleClick = (number) => {
-        if (activeField === null) {
-            return;
-        }
-        setNumber(parseInt(number, 10), activeField.id);
+        setNumber(parseInt(number, 10));
     };
 
     const numberButtons = [];
@@ -64,23 +60,20 @@ const NumbersGroup = ({
 NumbersGroup.propTypes = {
     note: PropTypes.bool.isRequired,
     puzzle: PROP_PUZZLE,
-    activeField: SHAPE_ACTIVE_FIELD,
     setNumber: PropTypes.func.isRequired,
 };
 
 NumbersGroup.defaultProps = {
-    activeField: null,
     puzzle: null,
 };
 
 const mapStateToProps = (state) => ({
     note: state.sudoku.note,
-    activeField: state.sudoku.activeField,
     puzzle: state.sudoku.puzzle,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setNumber: (number, id) => dispatch(actions.setNumber(number, id)),
+    setNumber: (number) => dispatch(actions.setNumber(number)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NumbersGroup);

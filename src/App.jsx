@@ -1,31 +1,28 @@
-import React, { useCallback, useEffect, useState } from "react";
-import "./App.css";
-import Container from "@mui/material/Container";
+import React, { useEffect } from "react";
+import Box from "@mui/material/Box";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Menu from "./components/Menu/Menu";
-import Puzzle from "./components/Puzzle/Puzzle";
-import SuccessScreen from "./components/SuccessScreen/SuccessScreen";
+import styled from "styled-components";
+import Menu from "./containers/Menu/Menu";
+import Puzzle from "./containers/Sudoku/Sudoku";
+import SuccessScreen from "./containers/SuccessScreen/SuccessScreen";
 import * as actions from "./store/actions";
-import useWindowKeyHandler from "./hooks/windowKeyHandler";
-import useErrorSound from "./hooks/errorSound";
-import { PROP_PUZZLE } from "./constants/propTypes";
-import Button from "./components/Button/Button";
+import useWindowKeyHandler from "./hooks/useWindowKeyHandler";
+import useErrorSound from "./hooks/useErrorSound";
+import Header from "./components/Header/Header";
+
+const Container = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
 
 const App = ({
-    difficulty,
-    puzzle,
     solved,
+    showMenu,
     loadFromStorage,
 }) => {
-    const [showMenu, setShowMenu] = useState(true);
-
-    useEffect(() => {
-        if (difficulty === null && showMenu === false) {
-            setShowMenu(true);
-        }
-    }, [difficulty, showMenu, setShowMenu]);
-
     useEffect(() => {
         loadFromStorage();
     }, [loadFromStorage]);
@@ -33,42 +30,22 @@ const App = ({
     useWindowKeyHandler();
     useErrorSound();
 
-    const getMenuPage = useCallback(() => {
-        if (puzzle === null) {
-            return <Menu onClick={setShowMenu} />;
-        }
-
-        const buttonText = `Continue (${difficulty})`;
-        return (
-            <>
-                <Menu onClick={setShowMenu} />
-                <Button
-                    onClick={() => setShowMenu(!showMenu)}
-                >
-                    {buttonText}
-                </Button>
-            </>
-        );
-    }, [puzzle, difficulty, setShowMenu, showMenu]);
-
     const getPage = () => {
         if (solved) {
-            return <SuccessScreen onClick={setShowMenu} />;
+            return <SuccessScreen />;
         }
 
         if (showMenu) {
-            return getMenuPage();
+            return <Menu />;
         }
 
         return <Puzzle />;
     };
 
     return (
-        <div className="App">
-            <header className="App-header">
-                Sudoku
-            </header>
-            <Container id="main">
+        <div>
+            <Header>Sudoku</Header>
+            <Container>
                 {getPage()}
             </Container>
         </div>
@@ -76,21 +53,16 @@ const App = ({
 };
 
 App.propTypes = {
-    difficulty: PropTypes.string,
-    puzzle: PROP_PUZZLE,
     solved: PropTypes.bool.isRequired,
+    showMenu: PropTypes.bool.isRequired,
     loadFromStorage: PropTypes.func.isRequired,
-};
-
-App.defaultProps = {
-    difficulty: null,
-    puzzle: null,
 };
 
 const mapStateToProps = (state) => ({
     difficulty: state.sudoku.difficulty,
     puzzle: state.sudoku.puzzle,
     solved: state.sudoku.solved,
+    showMenu: state.app.showMenu,
 });
 
 const mapDispatchToProps = (dispatch) => ({

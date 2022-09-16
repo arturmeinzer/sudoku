@@ -1,34 +1,19 @@
-import React from "react";
-import "./Button.css";
-import PropTypes from "prop-types";
 import { Button as MuiButton } from "@mui/material";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
-const Button = ({
-    onClick,
-    variant,
-    color,
-    children,
-}) => (
-    <MuiButton
-        className="Button"
-        variant={variant}
-        color={color}
-        onClick={onClick}
-    >
-        {children}
-    </MuiButton>
-);
+const Button = styled(MuiButton)`
+    width: ${(props) => (props.$large ? "250px" : "150px")}
+`;
 
 Button.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    variant: PropTypes.string,
-    color: PropTypes.string,
-    children: PropTypes.string.isRequired,
+    $large: PropTypes.bool,
 };
 
 Button.defaultProps = {
     color: "primary",
     variant: "contained",
+    $large: false,
 };
 
 export default Button;

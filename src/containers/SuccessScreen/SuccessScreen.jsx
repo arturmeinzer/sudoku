@@ -1,31 +1,36 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Button from "../Button/Button";
+import styled from "styled-components";
+import Button from "../../components/Button/Button";
 import * as actions from "../../store/actions";
-import "./SuccessScreen.css";
 
-const SuccessScreen = ({ onClick, clearSudoku }) => {
+const Container = styled.div`
+    margin-top: 50px;
+`;
+
+const SuccessScreen = ({ clearSudoku, showMenu }) => {
     const handleClick = () => {
-        onClick(true);
         clearSudoku();
+        showMenu();
     };
 
     return (
-        <div className="SuccessScreen">
+        <Container>
             <h2>Congratulations!</h2>
             <Button onClick={handleClick}>New Game</Button>
-        </div>
+        </Container>
     );
 };
 
 SuccessScreen.propTypes = {
     clearSudoku: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
+    showMenu: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
     clearSudoku: () => dispatch(actions.clearSudoku()),
+    showMenu: () => dispatch(actions.showMenu()),
 });
 
 export default connect(null, mapDispatchToProps)(SuccessScreen);

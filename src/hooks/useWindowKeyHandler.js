@@ -63,13 +63,12 @@ const useWindowKeyHandler = () => {
             return;
         }
 
-        let keyNumber = 0;
         if (event.key === "Backspace" || event.key === "Delete") {
-            dispatch(actions.setNumber(keyNumber, activeField.id));
+            dispatch(actions.setNumber(0));
         } else {
-            keyNumber = event.keyCode - 48;
+            const keyNumber = event.keyCode - 48;
             if (keyNumber >= 1 && keyNumber <= 9) {
-                dispatch(actions.setNumber(keyNumber, activeField.id));
+                dispatch(actions.setNumber(keyNumber));
             }
         }
     }, [activeField, moveCursor, note, dispatch]);

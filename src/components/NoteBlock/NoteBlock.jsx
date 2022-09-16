@@ -1,28 +1,37 @@
 import React from "react";
-import "./NoteBlock.css";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import styled from "styled-components";
 import { SHAPE_ACTIVE_FIELD } from "../../constants/propTypes";
+import Note from "../Note/Note";
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+`;
 
 const NoteBlock = ({ numbers, activeField }) => {
     const blocks = [];
     for (let i = 1; i <= 9; i += 1) {
-        const classes = ["Note"];
+        let highlight = false;
         const hasNumber = numbers.indexOf(i) !== -1;
         if (activeField && activeField.number === i && hasNumber) {
-            classes.push("active");
+            highlight = true;
         }
+
         blocks.push(
-            <div className={classes.join(" ")} key={i}>
+            <Note key={i} highlight={highlight}>
                 {hasNumber ? i : ""}
-            </div>,
+            </Note>,
         );
     }
 
     return (
-        <div className="NoteBlock">
+        <Container>
             {blocks}
-        </div>
+        </Container>
     );
 };
 
@@ -35,8 +44,4 @@ NoteBlock.defaultProps = {
     activeField: null,
 };
 
-const mapStateToProps = (state) => ({
-    activeField: state.sudoku.activeField,
-});
-
-export default connect(mapStateToProps)(NoteBlock);
+export default NoteBlock;
