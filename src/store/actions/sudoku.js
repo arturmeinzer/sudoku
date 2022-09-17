@@ -1,6 +1,8 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
+const FETCH_SUDOKU_URL = "https://sudoku.artur-meinzer.de/api/fetch-sudoku";
+
 export const setDifficulty = (difficulty) => ({
     type: actionTypes.SUDOKU_SET_DIFFICULTY,
     payload: difficulty,
@@ -57,7 +59,7 @@ export const loadFromStorage = () => (dispatch) => {
 export const fetchSudokuByDifficulty = (difficulty) => async (dispatch) => {
     const options = {
         method: "GET",
-        url: "https://us-central1-sudoku-5f3b9.cloudfunctions.net/fetchSudoku",
+        url: FETCH_SUDOKU_URL,
         params: {
             difficulty,
         },
@@ -76,7 +78,7 @@ export const fetchSudokuByDifficulty = (difficulty) => async (dispatch) => {
 export const fetchSudokuBySeed = (givenSeed) => async (dispatch) => {
     const options = {
         method: "GET",
-        url: "https://sudoku.artur-meinzer.de/api/fetch-sudoku",
+        url: FETCH_SUDOKU_URL,
         params: {
             seed: givenSeed,
         },
