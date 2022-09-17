@@ -31,12 +31,11 @@ const SeedForm = ({ fetchSudoku }) => {
 
     return (
         <FormControl fullWidth>
-            <InputLabel error={isError}>Load by seed</InputLabel>
+            <InputLabel error={isError}>Enter Seed</InputLabel>
             <OutlinedInput
-                label="Load by seed"
+                label="Enter Seed"
                 onChange={handleChange}
                 error={isError}
-                placeholder=""
                 endAdornment={(
                     <InputAdornment position="end">
                         <IconButton onClick={handleSubmit}>
@@ -45,7 +44,7 @@ const SeedForm = ({ fetchSudoku }) => {
                     </InputAdornment>
                 )}
             />
-            {isError && <FormHelperText error>Empty Seed</FormHelperText>}
+            {isError && <FormHelperText error>Please enter valid seed</FormHelperText>}
         </FormControl>
     );
 };
