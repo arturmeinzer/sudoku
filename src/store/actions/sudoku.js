@@ -65,7 +65,6 @@ export const fetchSudoku = (difficulty) => async (dispatch) => {
 
     try {
         const response = await axios.request(options);
-        console.log(response.data.data);
         const { puzzle, solution, seed } = response.data.data;
         dispatch(fetchSudokuSuccess(puzzle, solution, seed));
     } catch (error) {
