@@ -12,7 +12,7 @@
         "function": "fetchSudoku"
       },
       {
-        "source": "**",
+        "source": "!/@(api)/**",
         "destination": "/index.html"
       }
     ]
