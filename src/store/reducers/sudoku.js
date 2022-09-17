@@ -80,12 +80,6 @@ const clearStorage = () => {
 
 const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
-    case actionTypes.SUDOKU_SET_DIFFICULTY:
-        return {
-            ...initialState,
-            difficulty: action.payload,
-        };
-
     case actionTypes.SUDOKU_SET_ACTIVE_FIELD:
         return {
             ...state,
@@ -98,13 +92,14 @@ const reducer = (state = initialState, action = {}) => {
             note: action.payload,
         };
 
-    case actionTypes.SUDOKU_FETCH:
+    case actionTypes.SUDOKU_FETCH_SUCCESS:
         return updateStorage({
             ...state,
             initialPuzzle: action.payload.puzzle,
             puzzle: action.payload.puzzle,
             solution: action.payload.solution,
             seed: action.payload.seed,
+            difficulty: action.payload.difficulty,
         });
 
     case actionTypes.SUDOKU_RESET:

@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import Button from "../../components/Button/Button";
 import {
     DIFFICULTY_EASY,
@@ -10,6 +12,7 @@ import {
 } from "../../constants/difficulty";
 import * as actions from "../../store/actions";
 import SeedForm from "./SeedForm/SeedForm";
+import LoadingIcon from "../../components/LoadingIcon/LoadingIcon";
 
 const Container = styled.div`
     margin-top: 50px;
@@ -21,9 +24,23 @@ const Container = styled.div`
     margin-bottom: 40px;
 `;
 
-const Menu = ({ currentDifficulty, setDifficulty, hideMenu }) => {
-    const handleClick = (difficulty) => {
-        setDifficulty(difficulty);
+const StyledBox = styled(Box)`
+    width: 200px;
+    margin: 150px auto auto;
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+const Menu = ({
+    difficulty,
+    loading,
+    fetchSudoku,
+    hideMenu,
+}) => {
+    const handleClick = (newDifficulty) => {
+        fetchSudoku(newDifficulty);
     };
 
     return (
@@ -31,29 +48,36 @@ const Menu = ({ currentDifficulty, setDifficulty, hideMenu }) => {
             <Button onClick={() => handleClick(DIFFICULTY_EASY)} color="secondary" $large>Easy</Button>
             <Button onClick={() => handleClick(DIFFICULTY_MEDIUM)} color="secondary" $large>Medium</Button>
             <Button onClick={() => handleClick(DIFFICULTY_HARD)} color="secondary" $large>Hard</Button>
-            {currentDifficulty
-                && <Button onClick={() => hideMenu()} $large>{`Continue (${currentDifficulty})`}</Button>}
+            {difficulty
+                && <Button onClick={() => hideMenu()} $large>{`Continue (${difficulty})`}</Button>}
             <SeedForm />
+            <Modal open={loading}>
+                <StyledBox>
+                    <LoadingIcon />
+                </StyledBox>
+            </Modal>
         </Container>
     );
 };
 
 Menu.propTypes = {
-    currentDifficulty: PropTypes.string,
-    setDifficulty: PropTypes.func.isRequired,
+    difficulty: PropTypes.string,
+    loading: PropTypes.bool.isRequired,
+    fetchSudoku: PropTypes.func.isRequired,
     hideMenu: PropTypes.func.isRequired,
 };
 
 Menu.defaultProps = {
-    currentDifficulty: null,
+    difficulty: null,
 };
 
 const mapStateToProps = (state) => ({
-    currentDifficulty: state.sudoku.difficulty,
+    difficulty: state.sudoku.difficulty,
+    loading: state.app.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setDifficulty: (difficulty) => dispatch(actions.setDifficulty(difficulty)),
+    fetchSudoku: (difficulty) => dispatch(actions.fetchSudokuByDifficulty(difficulty)),
     hideMenu: () => dispatch(actions.showMenu(false)),
 });
 

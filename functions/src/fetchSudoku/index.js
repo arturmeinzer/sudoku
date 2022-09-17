@@ -66,9 +66,10 @@ const fetchSudoku = async (difficulty, seed) => {
             };
         }
         return {
+            difficulty: response.data.difficulty,
+            seed: response.data.seed,
             puzzle: transform(response.data.puzzle),
             solution: transform(solution),
-            seed: response.data.seed,
         };
     } catch (error) {
         return {error};

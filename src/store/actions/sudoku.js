@@ -3,11 +3,6 @@ import * as actionTypes from "./actionTypes";
 
 const FETCH_SUDOKU_URL = "https://sudoku.artur-meinzer.de/api/fetch-sudoku";
 
-export const setDifficulty = (difficulty) => ({
-    type: actionTypes.SUDOKU_SET_DIFFICULTY,
-    payload: difficulty,
-});
-
 export const setActiveField = (activeField) => ({
     type: actionTypes.SUDOKU_SET_ACTIVE_FIELD,
     payload: activeField,
@@ -36,12 +31,17 @@ export const setIsError = (isError) => ({
     payload: isError,
 });
 
-export const fetchSudokuSuccess = (puzzle, solution, seed) => ({
+export const fetchSudoku = () => ({
     type: actionTypes.SUDOKU_FETCH,
+});
+
+export const fetchSudokuSuccess = (puzzle, solution, seed, difficulty) => ({
+    type: actionTypes.SUDOKU_FETCH_SUCCESS,
     payload: {
         puzzle,
         solution,
         seed,
+        difficulty,
     },
 });
 
@@ -57,6 +57,8 @@ export const loadFromStorage = () => (dispatch) => {
 };
 
 export const fetchSudokuByDifficulty = (difficulty) => async (dispatch) => {
+    dispatch(fetchSudoku());
+
     const options = {
         method: "GET",
         url: FETCH_SUDOKU_URL,
@@ -67,8 +69,14 @@ export const fetchSudokuByDifficulty = (difficulty) => async (dispatch) => {
 
     try {
         const response = await axios.request(options);
-        const { puzzle, solution, seed } = response.data.data;
-        dispatch(fetchSudokuSuccess(puzzle, solution, seed));
+        const {
+            puzzle,
+            solution,
+            seed,
+        } = response.data.data;
+        dispatch(
+            fetchSudokuSuccess(puzzle, solution, seed, difficulty),
+        );
     } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
@@ -76,6 +84,8 @@ export const fetchSudokuByDifficulty = (difficulty) => async (dispatch) => {
 };
 
 export const fetchSudokuBySeed = (givenSeed) => async (dispatch) => {
+    dispatch(fetchSudoku());
+
     const options = {
         method: "GET",
         url: FETCH_SUDOKU_URL,
@@ -86,8 +96,15 @@ export const fetchSudokuBySeed = (givenSeed) => async (dispatch) => {
 
     try {
         const response = await axios.request(options);
-        const { puzzle, solution, seed } = response.data.data;
-        dispatch(fetchSudokuSuccess(puzzle, solution, seed));
+        const {
+            puzzle,
+            solution,
+            seed,
+            difficulty,
+        } = response.data.data;
+        dispatch(
+            fetchSudokuSuccess(puzzle, solution, seed, difficulty.toLowerCase()),
+        );
     } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
