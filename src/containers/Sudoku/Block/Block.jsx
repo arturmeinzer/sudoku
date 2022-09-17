@@ -6,8 +6,13 @@ import { rubberBand } from "react-animations";
 import { getRow } from "../../../helpers/GridCalculator";
 import NoteBlock from "../../../components/NoteBlock/NoteBlock";
 import * as actions from "../../../store/actions";
-import { PROP_PUZZLE, PROP_PUZZLE_NUMBER, SHAPE_ACTIVE_FIELD } from "../../../constants/propTypes";
-import * as PuzzleUpdater from "../../../helpers/PuzzleUpdater";
+import { PROP_PUZZLE_NUMBER, SHAPE_ACTIVE_FIELD } from "../../../constants/propTypes";
+import useFieldType from "../../../hooks/useFieldType";
+import {
+    FIELD_TYPE_ACTIVE, FIELD_TYPE_ERROR,
+    FIELD_TYPE_MARKED,
+    FIELD_TYPE_SAME_NUMBER,
+} from "../../../constants/fieldTypes";
 
 const bounceAnimation = keyframes`${rubberBand}`;
 
@@ -46,19 +51,19 @@ const StyledButton = styled.button`
         border-right: 2px solid #000;
     `}
 
-    ${(props) => props.active && css`
+    ${(props) => props.fieldType === FIELD_TYPE_ACTIVE && css`
         background: #85C1E9;
     `}
 
-    ${(props) => props.marked && css`
+    ${(props) => props.fieldType === FIELD_TYPE_MARKED && css`
         background: #D4E6F1;
     `}
 
-    ${(props) => props.sameNumber && css`
+    ${(props) => props.fieldType === FIELD_TYPE_SAME_NUMBER && css`
         background: #D6DBDF;
     `}
 
-    ${(props) => props.error && css`
+    ${(props) => props.fieldType === FIELD_TYPE_ERROR && css`
         background: tomato;
     `}
   
@@ -72,37 +77,8 @@ const Block = ({
     id,
     activeField,
     setActiveField,
-    puzzle,
-    solution,
 }) => {
-    const isActive = () => {
-        if (activeField === null) {
-            return false;
-        }
-        return id === activeField.id;
-    };
-
-    const isMarked = () => {
-        const active = activeField !== null ? activeField.id : null;
-        return PuzzleUpdater.isMarkedField(active, id);
-    };
-
-    const isError = () => PuzzleUpdater.isError(id, puzzle, solution);
-
-    const isSameNumber = () => {
-        if (activeField === null) {
-            return false;
-        }
-
-        const activeValue = activeField.number;
-        const currentValue = puzzle[id];
-
-        if (activeValue === 0) {
-            return false;
-        }
-
-        return activeValue === currentValue;
-    };
+    const [fieldType, shake] = useFieldType(id);
 
     const handleClick = () => {
         setActiveField({ id, number });
@@ -120,11 +96,8 @@ const Block = ({
             type="button"
             id={id}
             row={row}
-            active={isActive() && !isError()}
-            marked={!isActive() && isMarked()}
-            error={isError()}
-            sameNumber={!isActive() && isSameNumber()}
-            shake={isSameNumber() && isMarked() && !isError()}
+            fieldType={fieldType}
+            shake={shake}
             onClick={handleClick}
         >
             {cellValue}
@@ -136,8 +109,6 @@ Block.propTypes = {
     number: PROP_PUZZLE_NUMBER.isRequired,
     id: PropTypes.number.isRequired,
     activeField: SHAPE_ACTIVE_FIELD,
-    puzzle: PROP_PUZZLE.isRequired,
-    solution: PropTypes.arrayOf(PropTypes.number).isRequired,
     setActiveField: PropTypes.func.isRequired,
 };
 
