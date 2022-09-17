@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Sudoku App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A Sudoku App created with React.
 
-## Available Scripts
+Sudoku is a logic game that involves placing numbers in a grid pattern. It consists of 3 x 3 boxes which in turn consist of 3 x 3 squares.
+The task is to place the numbers 1 to 9 in such a way that each horizontal row, vertical row and box of 3 x 3 squares contains each number exactly once.
 
-In the project directory, you can run:
+## Game Features
 
-### `npm start`
+* Menu for choosing difficulty
+* Render a grid-based game in the browser
+* Highlight all fields that are in the same line, in the same row and in the same quadrant
+* Highlight same numbers when choosing a field with a filled number
+* Note button to switch to note mode where you can place pencil marks on the fields
+* Save loaded game in local storage
+* Continue game in menu when available in local storage
+* Play error sound when entering a wrong number and mark the field red
+* Button for resetting the current puzzle
+* Button for starting a new Game
+* Possibility to type in the numbers on the keyboard
+* Success screen after puzzle is solved
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Javascript
+* React
+* Redux
+* React Hooks
+* Custom Hooks
+* Functional Components
+* Styled Components
+* Material UI
+* EventListener
+* Firebase Hosting
+* Firebase Cloud Functions
+* API call
