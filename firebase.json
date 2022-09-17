@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/api/fetch-sudoku",
+        "function": "fetchSudoku"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

@@ -76,7 +76,7 @@ export const fetchSudokuByDifficulty = (difficulty) => async (dispatch) => {
 export const fetchSudokuBySeed = (givenSeed) => async (dispatch) => {
     const options = {
         method: "GET",
-        url: "https://us-central1-sudoku-5f3b9.cloudfunctions.net/fetchSudoku",
+        url: "https://sudoku.artur-meinzer.de/api/fetch-sudoku",
         params: {
             seed: givenSeed,
         },
