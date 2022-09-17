@@ -9,6 +9,7 @@ import {
     DIFFICULTY_HARD,
 } from "../../constants/difficulty";
 import * as actions from "../../store/actions";
+import SeedForm from "./SeedForm/SeedForm";
 
 const Container = styled.div`
     margin-top: 50px;
@@ -20,7 +21,7 @@ const Container = styled.div`
     margin-bottom: 40px;
 `;
 
-const Menu = ({ currentDifficulty, setDifficulty, showMenu }) => {
+const Menu = ({ currentDifficulty, setDifficulty, hideMenu }) => {
     const handleClick = (difficulty) => {
         setDifficulty(difficulty);
     };
@@ -31,7 +32,8 @@ const Menu = ({ currentDifficulty, setDifficulty, showMenu }) => {
             <Button onClick={() => handleClick(DIFFICULTY_MEDIUM)} color="secondary" $large>Medium</Button>
             <Button onClick={() => handleClick(DIFFICULTY_HARD)} color="secondary" $large>Hard</Button>
             {currentDifficulty
-                && <Button onClick={() => showMenu(false)} $large>{`Continue (${currentDifficulty})`}</Button>}
+                && <Button onClick={() => hideMenu()} $large>{`Continue (${currentDifficulty})`}</Button>}
+            <SeedForm />
         </Container>
     );
 };
@@ -39,7 +41,7 @@ const Menu = ({ currentDifficulty, setDifficulty, showMenu }) => {
 Menu.propTypes = {
     currentDifficulty: PropTypes.string,
     setDifficulty: PropTypes.func.isRequired,
-    showMenu: PropTypes.func.isRequired,
+    hideMenu: PropTypes.func.isRequired,
 };
 
 Menu.defaultProps = {
@@ -52,7 +54,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setDifficulty: (difficulty) => dispatch(actions.setDifficulty(difficulty)),
-    showMenu: () => dispatch(actions.showMenu(false)),
+    hideMenu: () => dispatch(actions.showMenu(false)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);

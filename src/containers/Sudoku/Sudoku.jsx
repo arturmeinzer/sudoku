@@ -89,7 +89,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setNote: (note) => dispatch(actions.setNote(note)),
-    fetchSudoku: (difficulty) => dispatch(actions.fetchSudoku(difficulty)),
+    fetchSudoku: (difficulty) => dispatch(actions.fetchSudokuByDifficulty(difficulty)),
     resetSudoku: () => dispatch(actions.resetSudoku()),
     clearSudoku: () => dispatch(actions.clearSudoku()),
 });

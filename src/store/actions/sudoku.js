@@ -54,12 +54,31 @@ export const loadFromStorage = () => (dispatch) => {
     }
 };
 
-export const fetchSudoku = (difficulty) => async (dispatch) => {
+export const fetchSudokuByDifficulty = (difficulty) => async (dispatch) => {
     const options = {
         method: "GET",
         url: "https://us-central1-sudoku-5f3b9.cloudfunctions.net/fetchSudoku",
         params: {
             difficulty,
+        },
+    };
+
+    try {
+        const response = await axios.request(options);
+        const { puzzle, solution, seed } = response.data.data;
+        dispatch(fetchSudokuSuccess(puzzle, solution, seed));
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+    }
+};
+
+export const fetchSudokuBySeed = (givenSeed) => async (dispatch) => {
+    const options = {
+        method: "GET",
+        url: "https://us-central1-sudoku-5f3b9.cloudfunctions.net/fetchSudoku",
+        params: {
+            seed: givenSeed,
         },
     };
 

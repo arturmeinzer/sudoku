@@ -35,13 +35,22 @@ const fetchSolution = async (puzzle) => {
     }
 };
 
-const fetchSudoku = async (difficulty) => {
+const fetchSudoku = async (difficulty, seed) => {
+    const params = {};
+    if (difficulty) {
+        params.difficulty = difficulty;
+    } else if (seed) {
+        params.seed = seed;
+    } else {
+        return {
+            error: "missing params",
+        };
+    }
+
     const options = {
         method: "GET",
         url: "https://sudoku-generator1.p.rapidapi.com/sudoku/generate",
-        params: {
-            difficulty,
-        },
+        params,
         headers: {
             "X-RapidAPI-Key": process.env.RAPID_API_KEY,
             "X-RapidAPI-Host": process.env.RAPID_API_HOST,
@@ -70,17 +79,18 @@ exports.fetchSudoku = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         const data = req.query;
         const difficulty = data.difficulty;
+        const seed = data.seed;
 
-        if (!difficulty) {
+        if (!difficulty && !seed) {
             return res.status(400).send({
                 data: {
                     status: 400,
-                    message: "Parameter difficulty missing",
+                    message: "Parameter difficulty or seed missing",
                 },
             });
         }
 
-        const fetchResponse = await fetchSudoku(difficulty);
+        const fetchResponse = await fetchSudoku(difficulty, seed);
 
         if (fetchResponse.error) {
             return res.status(500).send({

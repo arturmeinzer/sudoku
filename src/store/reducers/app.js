@@ -7,6 +7,7 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
     case actionTypes.SUDOKU_SET_DIFFICULTY:
+    case actionTypes.SUDOKU_FETCH:
         return {
             ...state,
             showMenu: false,
