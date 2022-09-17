@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 import Button from "../../components/Button/Button";
 import Block from "./Block/Block";
 import * as actions from "../../store/actions";
@@ -15,10 +14,6 @@ import Puzzle from "../../components/Puzzle/Puzzle";
 
 const SQUARES = 81;
 
-const Container = styled.div`
-    width: 544px;
-`;
-
 const Sudoku = ({
     difficulty,
     puzzle,
@@ -28,31 +23,11 @@ const Sudoku = ({
     resetSudoku,
     clearSudoku,
 }) => {
-    const [blocks, setBlocks] = useState([]);
-
     useEffect(() => {
         if (puzzle === null && difficulty) {
             fetchSudoku(difficulty);
         }
     }, [difficulty, fetchSudoku, puzzle]);
-
-    useEffect(() => {
-        if (puzzle === null) {
-            return;
-        }
-
-        const newBlocks = [];
-        for (let i = 0; i < SQUARES; i += 1) {
-            newBlocks.push(
-                <Block
-                    key={i}
-                    id={i}
-                    number={puzzle[i]}
-                />,
-            );
-        }
-        setBlocks(newBlocks);
-    }, [puzzle]);
 
     if (puzzle === null) {
         return (
@@ -60,8 +35,19 @@ const Sudoku = ({
         );
     }
 
+    const blocks = [];
+    for (let i = 0; i < SQUARES; i += 1) {
+        blocks.push(
+            <Block
+                key={i}
+                id={i}
+                number={puzzle[i]}
+            />,
+        );
+    }
+
     return (
-        <Container>
+        <div>
             <InfoBox />
             <Puzzle>
                 {blocks}
@@ -74,7 +60,7 @@ const Sudoku = ({
                 <Button onClick={() => resetSudoku()} color="secondary">Reset</Button>
                 <Button onClick={() => clearSudoku()} color="secondary">New Game</Button>
             </ButtonGroup>
-        </Container>
+        </div>
     );
 };
 

@@ -14,18 +14,10 @@ import {
     FIELD_TYPE_SAME_NUMBER,
 } from "../../../constants/fieldTypes";
 
-const bounceAnimation = keyframes`${rubberBand}`;
+const shakeAnimation = keyframes`${rubberBand}`;
 
 const StyledButton = styled.button`
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    box-sizing: border-box;
-    border-spacing: 0;
     border: 1px solid #aaa;
-    text-align: center;
-    vertical-align: middle;
     font-size: 30px;
     cursor: pointer;
     background: #fff;
@@ -68,7 +60,7 @@ const StyledButton = styled.button`
     `}
   
     ${(props) => props.shake && css`
-        animation: 1s ${bounceAnimation};
+        animation: 1s ${shakeAnimation};
     `}
 `;
 
@@ -118,8 +110,6 @@ Block.defaultProps = {
 
 const mapStateToProps = (state) => ({
     activeField: state.sudoku.activeField,
-    puzzle: state.sudoku.puzzle,
-    solution: state.sudoku.solution,
 });
 
 const mapDispatchToProps = (dispatch) => ({

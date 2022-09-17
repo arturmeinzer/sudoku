@@ -5,11 +5,9 @@ import { SHAPE_ACTIVE_FIELD } from "../../constants/propTypes";
 import Note from "../Note/Note";
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    height: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
 `;
 
 const NoteBlock = ({ numbers, activeField }) => {
