@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 import Button from "../../components/Button/Button";
 import {
     DIFFICULTY_EASY,
@@ -12,7 +10,7 @@ import {
 } from "../../constants/difficulty";
 import * as actions from "../../store/actions";
 import SeedForm from "./SeedForm/SeedForm";
-import LoadingIcon from "../../components/LoadingIcon/LoadingIcon";
+import LoadingModal from "../../components/LoadingModal/LoadingModal";
 
 const Container = styled.div`
     margin-top: 50px;
@@ -22,15 +20,6 @@ const Container = styled.div`
     justify-content: space-between;
     gap: 20px;
     margin-bottom: 40px;
-`;
-
-const StyledBox = styled(Box)`
-    width: 200px;
-    margin: 150px auto auto;
-
-    &:focus {
-        outline: none;
-    }
 `;
 
 const Menu = ({
@@ -51,11 +40,7 @@ const Menu = ({
             {difficulty
                 && <Button onClick={() => hideMenu()} $large>{`Continue (${difficulty})`}</Button>}
             <SeedForm />
-            <Modal open={loading}>
-                <StyledBox>
-                    <LoadingIcon />
-                </StyledBox>
-            </Modal>
+            <LoadingModal open={loading} />
         </Container>
     );
 };

@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
-import { IoEnter } from "react-icons/io5";
+import FormHelperText from "@mui/material/FormHelperText";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
+import { IoEnter } from "react-icons/io5";
 import PropTypes from "prop-types";
-import { FormHelperText, OutlinedInput } from "@mui/material";
+
 import * as actions from "../../../store/actions";
 
 const SeedForm = ({ fetchSudoku }) => {

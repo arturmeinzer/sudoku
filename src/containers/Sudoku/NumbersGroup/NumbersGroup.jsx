@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, ButtonGroup } from "@mui/material";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import * as actions from "../../../store/actions";
